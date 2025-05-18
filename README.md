@@ -28,17 +28,23 @@ The example in index.html has minimal styling, but the elements are just buttons
 
 ## Attributes
 
-### `orientation`
+### `aria-orientation`
 
-TODO
+A standard aria attribute that applies to tabs. Set `aria-orientation="vertical"` if you are styling the tab buttons to have a vertically stacked layout. This will have up & down arrows change tabs instead of left & right.
 
 ### `activation`
 
-TODO
+You can set `activation="manual"` if you don't want the tabs to change immediately on arrow key press. This means that tab buttons will get focused when you press arrow keys, but you will need to press Space or Enter to activate the focused tab.
 
 ## Extra
 
 You can use any html inside `<tabs->` if you need to. The tabs element only cares that there are some buttons with values inside somewhere, and that there are elements that have ids that match those values somewhere.
+
+You really really should only include buttons inside tabs and have your panels in order after the tabs, but that's not strictly required or enforced. It's just that users (especially screen reader users, but everybody really) expect tab contents to come right after the tabs. If you need some links or action buttons on the same row as the tabs or something like that, have those buttons come before the tabs in the html.
+
+Why no `<tabs-><tab->Tab A<tab-></tabs->`, `<tab-panel>` or some such elements also? Well a tab _is a button_ and is specified to work like a button and browsers give all the basic interactivity and style hooks for free. Making any kind of custom clickable elements is just a big amount of useless extra work.
+
+A `<tab-panel>` like element might make a smidge more sense, but it's just a generic container that gets its role overridden as `role=tabpanel` anyway, so didn't see any reason to.
 
 ----
 
