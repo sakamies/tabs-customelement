@@ -10,23 +10,24 @@ export class Tabs extends HTMLElement {
   #select(tab) {
     const id = tab.value
     this.tabs.forEach(tab => {
-      console.log(tab, id)
       const panel = this.panel(tab)
       const isSelected = panel.id === id
       tab.setAttribute('aria-selected', isSelected)
-      tab.tabindex = !isSelected * -1 //0 if isSelected is true, -1 if false
+      tab.setAttribute('tabindex', (!isSelected * -1).toString()) //0 if isSelected is true, -1 if false
       panel.hidden = !isSelected
     })
   }
 
   #handleClick = e => this.#select(e.target.closest('button'))
   #handleKey = e => {
-    const tabs = this.tabs
-    const tab = e.target.closest('button')
-    const index = tabs.indexOf(tab)
     const orientation = this.orientation
     const nextKey = orientation === 'vertical' && e.key === 'ArrowDown' || e.key === 'ArrowRight'
     const prevKey = orientation === 'vertical' && e.key === 'ArrowUp' || e.key === 'ArrowLeft'
+    if (!nextKey && !prevKey) return
+
+    const tabs = this.tabs
+    const tab = e.target.closest('button')
+    const index = tabs.indexOf(tab)
     let nextTab
     if (nextKey) {
       nextTab = tabs[index + 1] || tabs[0] //find next tab or first
@@ -59,21 +60,19 @@ export class Tabs extends HTMLElement {
       tab.setAttribute('aria-role', 'tab')
       tab.setAttribute('aria-controls', id)
       tab.id ??= id + '-tab'
+      tab.setAttribute('tabindex', '-1')
       const panel = this.panel(tab)
       panel.setAttribute('role', 'tabpanel')
       panel.setAttribute('aria-labelledby', tab.id)
-      panel.tabindex = 0
+      panel.setAttribute('tabindex', '0')
     })
     this.#select(tabs[0])
     this.#listen()
   }
 
   connectedCallback() {
-    console.log('connected, readystate', document.readyState)
     if (document.readyState !== 'complete') {
-      console.log('needs DOMContentLoaded')
       document.addEventListener('DOMContentLoaded', () => {
-        console.log('DOMContent is Loaded')
         this.#setup()
       })
     } else {
