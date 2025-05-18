@@ -21,9 +21,9 @@ export class Tabs extends HTMLElement {
 
   #handleClick = e => this.#select(e.target.closest('button'))
   #handleKey = e => {
-    const tab = e.closest('button')
-    const index = tabs.indexOf(tab)
     const tabs = this.tabs
+    const tab = e.target.closest('button')
+    const index = tabs.indexOf(tab)
     const orientation = this.orientation
     const nextKey = orientation === 'vertical' && e.key === 'ArrowDown' || e.key === 'ArrowRight'
     const prevKey = orientation === 'vertical' && e.key === 'ArrowUp' || e.key === 'ArrowLeft'
@@ -34,7 +34,7 @@ export class Tabs extends HTMLElement {
       nextTab = tabs[index - 1] || tabs[tabs.length - 1] //find prev tab or last
     }
     nextTab.focus()
-    if (activation !== 'manual') {
+    if (this.activation !== 'manual') {
       this.#select(nextTab)
     }
   }
