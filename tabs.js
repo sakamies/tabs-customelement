@@ -1,9 +1,7 @@
 //Supports only horizontal tabs for now.
 
 export class Tabs extends HTMLElement {
-  constructor() {
-    super()
-  }
+  constructor() {super()}
 
   get orientation() {return this.getAttribute('aria-orientation')}
   get activation() {return this.getAttribute('activation')}
@@ -57,6 +55,7 @@ export class Tabs extends HTMLElement {
     const tabs = this.tabs
     tabs.forEach(tab => {
       const id = tab.value
+      tab.setAttribute('type', 'button')
       tab.setAttribute('aria-role', 'tab')
       tab.setAttribute('aria-controls', id)
       tab.id ??= id + '-tab'
