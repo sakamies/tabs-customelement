@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lounaspeli</title>
+  <!-- TODO: make tabs- element -->
+  <script type="module">
+    import {Tabs} from '/tabs.js'
+    customElements.define('tabs-', Tabs)
+  </script>
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      display: grid;
+      place-content: center;
+      font-family: system-ui;
+      text-align: center;
+      min-height: 100%;
+      margin: 0;
+      padding: 0 0 2rem 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tabs custom element</h1>
+
+  <tabs->
+    <button value="a">Tab A</button>
+    <button value="b">Tab B</button>
+    <button value="c">Tab C</button>
+  </tabs->
+
+  <section id="a">
+    <h2>Tab A</h2>
+    <p>Tab AaaaaAAAaaaaAAA</p>
+  </section>
+
+  <section id="b">
+    <h2>Tab B</h2>
+    <p>Boom goes the dynamite</p>
+  </section>
+
+  <section id="c">
+    <h2>Tab C</h2>
+    <p>C-C-C-COMBO BREAKER</p>
+  </section>
+
+</body>
+</html>
