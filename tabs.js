@@ -13,6 +13,7 @@ export class Tabs extends HTMLElement {
 
     const selectedId = tab.value
     this.tabs.forEach(tab => {
+      //TODO: skip disabled buttons?
       const panel = this.panel(tab)
       const isSelected = panel.id === selectedId
       tab.setAttribute('aria-selected', isSelected)
@@ -37,6 +38,7 @@ export class Tabs extends HTMLElement {
     const prevKey = orientation === 'vertical' && e.key === 'ArrowUp' || e.key === 'ArrowLeft'
     if (!nextKey && !prevKey) return
 
+    //TODO: skip disabled buttons?
     const tabs = this.tabs
     const tab = e.target.closest('button')
     const index = tabs.indexOf(tab)
@@ -67,6 +69,7 @@ export class Tabs extends HTMLElement {
     const selectedTab = this.querySelector('[aria-selected="true"]')
 
     tabs.forEach(tab => {
+      //TODO: handle disabled buttons. Make a panel for disabled buttons always hidden?
       const panel = this.panel(tab)
 
       tab.type = 'button'
