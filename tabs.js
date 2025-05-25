@@ -1,6 +1,8 @@
 //Supports only horizontal tabs for now.
 
 export class Tabs extends HTMLElement {
+  static observedAttributes = ['activation']
+
   constructor() {super()}
 
   get orientation() {return this.getAttribute('aria-orientation')}
