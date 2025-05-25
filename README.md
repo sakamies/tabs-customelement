@@ -16,7 +16,7 @@ No build, no dependencies, no Shadow DOM shenanigans. Maybe about 3.5k uncompres
 ```
 
 - Wrap some buttons with a `<tabs->` element.
-- Make some elements with id's.
+- Make some elements with id's. (Doesn't have to be `<section>` elements, just seemed appropriate here.)
 - Target those id's with a `value` attribute on your buttons.
 
 ```html
@@ -34,7 +34,7 @@ The tabs element upgrades the DOM with all the necessary attributes and event li
 
 The example in `index.html` has minimal styling, but the elements are just buttons and sections, so style however fits your project. Inspect the elements with devtools to see what attributes are added to the buttons and sections. There is no hidden state, just attributes.
 
-You can use any html inside `<tabs->` if you need to. The tabs element only cares that there are some buttons with values inside somewhere, and that there are elements that have ids that match those values somewhere.
+You can use wrappers for the buttons or really any html inside `<tabs->` if you need to. The tabs element only cares that there are some buttons with values inside somewhere, and that there are elements that have ids that match those values somewhere.
 
 ## Choose which tab is initially selected
 
@@ -57,12 +57,6 @@ A standard aria attribute that applies to tabs. Set `aria-orientation="vertical"
 
 You can set `activation="manual"` if you don't want the tabs to change immediately on arrow key press. This means that tab buttons will get focused when you press arrow keys, but you will need to press Space or Enter to activate the focused tab.
 
-## Progressive enhancement
-
-There's a tradeoff to consider. You can set the `hidden` attribute on your non-selected tab panel elements so only the initially selected tab is visible before any scripts or styles load. If scripts fail to load though, your user won't see all the tabs, just the initial tab. This might be a good tradeoff for a smoother looking page load or if you're relying a lot on javascript anyway. If you're considering slower or less reliable networks, lower end devices or any other kind of scenario where getting the content is more important than absolutely smooth presentation, then having all the tabs be visible initially and only being hidden after scripts have successfully completed loading might be the better option.
-
-If you keep your page weight low and the tabs are not right at the top of the page, having them all initially visible is probably just fine and the more robust option for everybody.
-
 ## Events
 
 When changing a tab, the tabs element will dispatch an event with the element name. If you named your tabs element `<tabs->`, then the event you listen to will be `tabs-`.
@@ -82,7 +76,11 @@ document.addEventListener('tabs-', event => {
 
 The tabs element will handle all interactivity and attributes for you, but you should still be mindful with your markup.
 
+### HTML structure
+
 You really really should only include tab buttons inside tabs and have your panels in order right after the tabs. That's not strictly required or enforced though. It's just that users (especially screen reader users, but everybody really) expect tabs to be sequential buttons and tab panels to come right after the tabs. If you need some links or action buttons on the same row as the tabs or something like that, have those buttons come before the tabs in the html and use css to position them as you need to.
+
+Screen readers and keyboard users might have functionality to jump from the tab button to the tab panel and back, but there's no guarantee of that unless you're making a tailored app for power users only.
 
 Here's an example.
 
@@ -90,15 +88,45 @@ Here's an example.
 <div class="toolbar">
   <button>Toolbar button X</button>
   <tabs->
-    <button value="tab-panel-a">Tab A</button>
+    <button value="a">Tab A</button>
+    <button value="a">Tab B</button>
   </tabs->
   <!-- Avoid putting anything here, between the tabs and panels. -->
 </div>
 <!-- Avoid putting anything here, between the tabs and panels. -->
-<section id="tab-panel-a"></section>
+<section id="a"></section>
+<section id="b"></section>
 ```
 
-So why not do something like this you ask?
+### Interactive content inside tab panels
+
+If you have a link, button, or some other focusable element inside your panel, you might rarely take the tab panel itself from the focus order. Be wary that in this case it should be obvious for keyboard and screen reader users that they have focused into a tab. It's safest and most consistent to go with the default that all panels are focusable. If you need to, you can take a panel out of the focus order in the standard way of setting `tabindex="-1"`. The tabs element will not unnecesarily overwrite attributes you have set.
+
+```html
+<tabs->
+  <button value="a">Tab A</button>
+  <button value="b">Tab B</button>
+</tabs->
+<section id="a"></section>
+<section id="b" tabindex="-1">
+  <a href="/link">A link at the beginning of the tab</a>
+</section>
+```
+
+### Disabled tabs
+
+You can disable tabs the standard way of setting the `disabled` attribute. You should avoid this though, since disabled buttons will not be communicated to screen readers in any way. Users with normal sight might now there's a disabled tab there, but screen reader users probably won't.
+
+```html
+<tabs->
+  <button value="a">Tab A</button>
+  <button disabled value="b">Tab B</button>
+</tabs->
+<section id="a"></section>
+<section id="b"></section>
+```
+
+### Why not more custom elements?
 
 ```html
 <tabs->
@@ -108,9 +136,15 @@ So why not do something like this you ask?
 <tab-panel></tab-panel>
 ```
 
-Well a tab _is a button_ and is specified to work like a button and browsers give all the basic interactivity and style hooks for free. Making any kind of [custom clickable elements](https://www.deque.com/blog/accessible-aria-buttons/) is just a big amount of useless extra work. It should only really be done if you're super stuck with a legacy system that can't do buttons for some archaic reason.
+Well a tab _is a button_ and is specified to work like a button and browsers give all the basic interactivity and style hooks for free. So it really should be a `<button>`. Making any kind of [custom clickable elements](https://www.deque.com/blog/accessible-aria-buttons/) is a big amount of useless extra work. It should only really be done if you're super stuck with a legacy system that can't do buttons for some archaic reason.
 
 A `<tab-panel>` like element might make a smidge more sense, but it's just a generic container that gets its role overridden as `role=tabpanel` anyway, so didn't see any reason to.
+
+## Progressive enhancement
+
+There's a tradeoff to consider. You can set the `hidden` attribute on your non-selected tab panel elements so only the initially selected tab is visible before any scripts or styles load. If scripts fail to load though, your user won't see all the tabs, just the initial tab. This might be a good tradeoff for a smoother looking page load or if you're relying a lot on javascript anyway. If you're considering slower or less reliable networks, lower end devices or any other kind of scenario where getting the content is more important than absolutely smooth presentation, then having all the tabs be visible initially and only being hidden after scripts have successfully completed loading might be the better option.
+
+If you keep your page weight low and the tabs are not right at the top of the page, having them all initially visible is probably just fine and the more robust option for everybody.
 
 ----
 
