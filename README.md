@@ -4,6 +4,8 @@ A minimal tabs custom element that tries to work exactly according to [ARIA Auth
 
 No build, no dependencies, no Shadow DOM shenanigans. Maybe about 3.5k uncompressed with comments. Trying to keep less than 1k compressed.
 
+[Demo](https://sakamies.github.io/tabs-customelement/)
+
 ## Usage
 
 [Import the script](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) into your document and [register the element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#registering_a_custom_element). Use any tag name you like. For small projects without the need for namespacing and such, I prefer `tabs-`.
