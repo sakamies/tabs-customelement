@@ -1,8 +1,8 @@
 # Tabs custom element
 
-A minimal tabs custom element that tries to work exactly according to [ARIA Authoring Practices Guide (APG) Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/). Tries to follow the recommended pattern word for word. Doesn't do anything else.
+A minimal tabs custom element that tries to work exactly according to [ARIA Authoring Practices Guide (APG) Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/). Doesn't do anything else.
 
-Wrap some buttons with a `<tabs->` element. Make some elements with id's. Target those id's with a `value` attribute on your buttons.
+Wrap some buttons with a `<tabs->` element. Make some elements with id's. Target those id's with a `value` attribute on your buttons. The tabs element upgrades the DOM with all the necessary attributes and event listeners.
 
 The example in `index.html` has minimal styling, but the elements are just buttons and sections, so style however fits your project. Inspect the elements with devtools to see what attributes are added to the buttons and sections. There is no hidden state, just attributes.
 
