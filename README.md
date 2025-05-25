@@ -2,12 +2,6 @@
 
 A minimal tabs custom element that tries to work exactly according to [ARIA Authoring Practices Guide (APG) Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/). Doesn't do anything else.
 
-Wrap some buttons with a `<tabs->` element. Make some elements with id's. Target those id's with a `value` attribute on your buttons. The tabs element upgrades the DOM with all the necessary attributes and event listeners.
-
-The example in `index.html` has minimal styling, but the elements are just buttons and sections, so style however fits your project. Inspect the elements with devtools to see what attributes are added to the buttons and sections. There is no hidden state, just attributes.
-
-![Example screen recording of attributes being populated to the dom.](upgrade.gif)
-
 ## Usage
 
 [Import the script](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) into your document and [register the element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#registering_a_custom_element).
@@ -19,6 +13,10 @@ The example in `index.html` has minimal styling, but the elements are just butto
 </script>
 ```
 
+- Wrap some buttons with a `<tabs->` element.
+- Make some elements with id's.
+- Target those id's with a `value` attribute on your buttons.
+
 ```html
 <tabs->
   <button value="tab-a-id">Tab A</button>
@@ -27,6 +25,12 @@ The example in `index.html` has minimal styling, but the elements are just butto
 <section id="tab-a-id">Tab A content</section>
 <section id="tab-b-id">Tab B content</section>
 ```
+
+The tabs element upgrades the DOM with all the necessary attributes and event listeners.
+
+![Example screen recording of attributes being populated to the dom.](upgrade.gif)
+
+The example in `index.html` has minimal styling, but the elements are just buttons and sections, so style however fits your project. Inspect the elements with devtools to see what attributes are added to the buttons and sections. There is no hidden state, just attributes.
 
 ## Choose which tab is initially selected
 
