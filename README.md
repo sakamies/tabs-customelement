@@ -6,6 +6,8 @@ Wrap some buttons with a `<tabs->` element. Make some elements with id's. Target
 
 The example in `index.html` has minimal styling, but the elements are just buttons and sections, so style however fits your project. Inspect the elements with devtools to see what attributes are added to the buttons and sections. There is no hidden state, just attributes.
 
+![Example screen recording of attributes being populated to the dom.](upgrade.gif)
+
 ## Usage
 
 [Import the script](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) into your document and [register the element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#registering_a_custom_element).
