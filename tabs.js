@@ -87,7 +87,7 @@ export class Tabs extends HTMLElement {
       if (panel.getAttribute('aria-label') === null && panel.getAttribute('aria-labelledby') === null) {
         panel.setAttribute('aria-labelledby', tab.id)
       }
-      panel.tabIndex = '0'
+      if (panel.getAttribute('tabindex') === null) panel.tabIndex = 0
     })
 
     this.select(selectedTab || tabs[0])
