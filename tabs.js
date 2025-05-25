@@ -30,9 +30,9 @@ export class Tabs extends HTMLElement {
     const index = tabs.indexOf(tab)
     let nextTab
     if (nextKey) {
-      nextTab = tabs[index + 1] || tabs[0] //find next tab or first
+      nextTab = tabs[index + 1] || tabs[0] //find next tab or wrap to first
     } else if (prevKey) {
-      nextTab = tabs[index - 1] || tabs[tabs.length - 1] //find prev tab or last
+      nextTab = tabs[index - 1] || tabs[tabs.length - 1] //find prev tab or wrap to last
     }
     nextTab.focus()
     if (this.activation !== 'manual') {
