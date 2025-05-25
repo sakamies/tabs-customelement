@@ -26,6 +26,17 @@ The example in `index.html` has minimal styling, but the elements are just butto
 <section id="tab-b-id">Tab B content</section>
 ```
 
+## Choose which tab is initially selected
+
+Add `aria-selected="true"` to your selected tab.
+
+```html
+<tabs->
+  <button value="tab-a-id">Tab A</button>
+  <button aria-selected="true" value="tab-b-id">Tab B</button>
+</tabs->
+```
+
 ## Attributes
 
 ### `aria-orientation`
