@@ -2,9 +2,11 @@
 
 A minimal tabs custom element that tries to work exactly according to [ARIA Authoring Practices Guide (APG) Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/). Doesn't do anything else.
 
+No build, no dependencies. Maybe about 3.5k uncompressed with comments. Trying to keep less than 1k compressed.
+
 ## Usage
 
-[Import the script](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) into your document and [register the element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#registering_a_custom_element).
+[Import the script](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) into your document and [register the element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#registering_a_custom_element). Use any tag name you like. For small projects without the need for namespacing and such, I prefer `tabs-`.
 
 ```html
 <script type="module">
@@ -61,11 +63,42 @@ There's a tradeoff to consider. You can set the `hidden` attribute on your non-s
 
 If you keep your page weight low and the tabs are not right at the top of the page, having them all initially visible is probably just fine and the more robust option for everybody.
 
-## Extra
+## Events
 
-You really really should only include tab buttons inside tabs and have your panels in order right after the tabs. That's not strictly required or enforced though. It's just that users (especially screen reader users, but everybody really) expect tabs to be buttons and tab contents to come right after the tabs. If you need some links or action buttons on the same row as the tabs or something like that, have those buttons come before the tabs in the html and use css to position them as you need to.
+When changing a tab, the tabs element will dispatch an event with the element name. If you named your tabs element `<tabs->`, then the event you listen to will be `tabs-`.
 
-Why not something like this you ask?
+The event gets the selected tab and panel in its `detail` property.
+
+The event is cancellable with `event.preventDefault()`. When preventing default, you get the tab and panel, but the tab will not change.
+
+```js
+document.addEventListener('tabs-', event => {
+  console.log(event.detail.tab, event.detail.panel)
+  event.preventDefault()
+})
+````
+
+## Accessibility
+
+The tabs element will handle all interactivity and attributes for you, but you should still be mindful with your markup.
+
+You really really should only include tab buttons inside tabs and have your panels in order right after the tabs. That's not strictly required or enforced though. It's just that users (especially screen reader users, but everybody really) expect tabs to be sequential buttons and tab panels to come right after the tabs. If you need some links or action buttons on the same row as the tabs or something like that, have those buttons come before the tabs in the html and use css to position them as you need to.
+
+Here's an example.
+
+```html
+<div class="toolbar">
+  <button>Toolbar button X</button>
+  <tabs->
+    <button value="tab-panel-a">Tab A</button>
+  </tabs->
+  <!-- Avoid putting anything here, between the tabs and panels. -->
+</div>
+<!-- Avoid putting anything here, between the tabs and panels. -->
+<section id="tab-panel-a"></section>
+```
+
+So why not do something like this you ask?
 
 ```html
 <tabs->
