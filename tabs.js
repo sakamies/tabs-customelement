@@ -13,7 +13,7 @@ export class Tabs extends HTMLElement {
       const panel = this.panel(tab)
       const isSelected = panel.id === id
       tab.setAttribute('aria-selected', isSelected)
-      tab.setAttribute('tabindex', (!isSelected * -1).toString()) //0 if isSelected is true, -1 if false
+      tab.tabIndex = (!isSelected * -1).toString() //0 if isSelected is true, -1 if false
       panel.hidden = !isSelected
     })
   }
@@ -49,22 +49,32 @@ export class Tabs extends HTMLElement {
     this.removeEventListener('keydown', this.#handleKey)
   }
 
-    //TODO: enforce having a label by aria-labelledby or aria-label
-    //TODO: wait for domready before setting stuff for content
-    this.setAttribute('role', 'tablist')
   setup() {
+    this.role = 'tablist'
     const tabs = this.tabs
+
     tabs.forEach(tab => {
-      const id = tab.value
-      tab.setAttribute('type', 'button')
-      tab.setAttribute('aria-role', 'tab')
-      tab.setAttribute('aria-controls', id)
-      tab.id ??= id + '-tab'
-      tab.setAttribute('tabindex', '-1')
       const panel = this.panel(tab)
-      panel.setAttribute('role', 'tabpanel')
-      panel.setAttribute('aria-labelledby', tab.id)
-      panel.setAttribute('tabindex', '0')
+
+      tab.type = 'button'
+      tab.tabIndex = '-1'
+      tab.role = 'tab'
+      tab.setAttribute('aria-controls', panel.id)
+
+      if (!tab.id) {
+        let safeid = panel.id + '-tab'
+        if (document.getElementById(safeid)) {
+          //Just making absolutely sure we don't accidentally introcuce duplicate ids.
+          safeid = crypto.randomUUID()
+        }
+        tab.id = safeid
+      }
+
+      panel.role = 'tabpanel'
+      if (panel.getAttribute('aria-label') === null && panel.getAttribute('aria-labelledby') === null) {
+        panel.setAttribute('aria-labelledby', tab.id)
+      }
+      panel.tabIndex = '0'
     })
 
     this.select(tabs[0])
