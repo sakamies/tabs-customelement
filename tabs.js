@@ -52,6 +52,7 @@ export class Tabs extends HTMLElement {
   setup() {
     this.role = 'tablist'
     const tabs = this.tabs
+    const selectedTab = this.querySelector('[aria-selected="true"]')
 
     tabs.forEach(tab => {
       const panel = this.panel(tab)
@@ -77,7 +78,7 @@ export class Tabs extends HTMLElement {
       panel.tabIndex = '0'
     })
 
-    this.select(tabs[0])
+    this.select(selectedTab || tabs[0])
     this.#listen()
   }
 
