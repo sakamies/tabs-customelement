@@ -53,6 +53,12 @@ A standard aria attribute that applies to tabs. Set `aria-orientation="vertical"
 
 You can set `activation="manual"` if you don't want the tabs to change immediately on arrow key press. This means that tab buttons will get focused when you press arrow keys, but you will need to press Space or Enter to activate the focused tab.
 
+## Progressive enhancement
+
+There's a tradeoff to consider. You can set the `hidden` attribute on your non-selected tab panel elements so only the initially selected tab is visible before any scripts or styles load. If scripts fail to load though, your user won't see all the tabs, just the initial tab. This might be a good tradeoff for a smoother looking page load or if you're relying a lot on javascript anyway. If you're considering slower or less reliable networks, lower end devices or any other kind of scenario where getting the content is more important than absolutely smooth presentation, then having all the tabs be visible initially and only being hidden after scripts have successfully completed loading might be the better option.
+
+If you keep your page weight low and the tabs are not right at the top of the page, having them all initially visible is probably just fine and the more robust option for everybody.
+
 ## Extra
 
 You can use any html inside `<tabs->` if you need to. The tabs element only cares that there are some buttons with values inside somewhere, and that there are elements that have ids that match those values somewhere.
@@ -62,12 +68,6 @@ You really really should only include buttons inside tabs and have your panels i
 Why no `<tabs-><tab->Tab A<tab-></tabs->`, `<tab-panel>` or some such elements also? Well a tab _is a button_ and is specified to work like a button and browsers give all the basic interactivity and style hooks for free. Making any kind of custom clickable elements is just a big amount of useless extra work.
 
 A `<tab-panel>` like element might make a smidge more sense, but it's just a generic container that gets its role overridden as `role=tabpanel` anyway, so didn't see any reason to.
-
-## Progressive enhancement
-
-There's a tradeoff to consider. You can set the `hidden` attribute on your non-selected tab panel elements so only the initially selected tab is visible before any scripts or styles load. If scripts fail to load though, your user won't see all the tabs, just the initial tab. This might be a good tradeoff for a smoother looking page load or if you're relying a lot on javascript anyway. If you're considering slower or less reliable networks, lower end devices or any other kind of scenario where getting the content is more important than absolutely smooth presentation, then having all the tabs be visible initially and only being hidden after scripts have successfully completed loading might be the better option.
-
-If you keep your page weight low and the tabs are not right at the top of the page, having them all initially visible is probably just fine and the more robust option for everybody.
 
 ----
 
