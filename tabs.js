@@ -70,16 +70,13 @@ export class Tabs extends HTMLElement {
       const panel = this.panel(tab)
 
       tab.type = 'button'
-      tab.tabIndex = '-1'
+      tab.tabIndex = -1
       tab.role = 'tab'
       tab.setAttribute('aria-controls', panel.id)
 
       if (!tab.id) {
         let safeid = panel.id + '-tab'
-        if (document.getElementById(safeid)) {
-          //Se we don't accidentally introduce duplicate ids.
-          safeid = crypto.randomUUID()
-        }
+        if (document.getElementById(safeid)) safeid = crypto.randomUUID()
         tab.id = safeid
       }
 
