@@ -46,6 +46,12 @@ Why no `<tabs-><tab->Tab A<tab-></tabs->`, `<tab-panel>` or some such elements a
 
 A `<tab-panel>` like element might make a smidge more sense, but it's just a generic container that gets its role overridden as `role=tabpanel` anyway, so didn't see any reason to.
 
+## Progressive enhancement
+
+There's a tradeoff to consider. You can set the `hidden` attribute on your non-selected tab panel elements so only the initially selected tab is visible before any scripts or styles load. If scripts fail to load though, your user won't see all the tabs, just the initial tab. This might be a good tradeoff for a smoother looking page load or if you're relying a lot on javascript anyway. If you're considering slower or less reliable networks, lower end devices or any other kind of scenario where getting the content is more important than absolutely smooth presentation, then having all the tabs be visible initially and only being hidden after scripts have successfully completed loading might be the better option.
+
+If you keep your page weight low and the tabs are not right at the top of the page, having them all initially visible is probably just fine and the more robust option for everybody.
+
 ----
 
 ## Licence, NPM module?
