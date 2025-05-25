@@ -7,7 +7,7 @@ export class Tabs extends HTMLElement {
   get activation() {return this.getAttribute('activation')}
   get tabs() {return Array.from(this.querySelectorAll('button'))}
   panel(tab) {return document.getElementById(tab.value)}
-  #select(tab) {
+  select(tab) {
     const id = tab.value
     this.tabs.forEach(tab => {
       const panel = this.panel(tab)
@@ -18,7 +18,7 @@ export class Tabs extends HTMLElement {
     })
   }
 
-  #handleClick = e => this.#select(e.target.closest('button'))
+  #handleClick = e => this.select(e.target.closest('button'))
   #handleKey = e => {
     const orientation = this.orientation
     const nextKey = orientation === 'vertical' && e.key === 'ArrowDown' || e.key === 'ArrowRight'
@@ -36,7 +36,7 @@ export class Tabs extends HTMLElement {
     }
     nextTab.focus()
     if (this.activation !== 'manual') {
-      this.#select(nextTab)
+      this.select(nextTab)
     }
   }
 
@@ -49,10 +49,10 @@ export class Tabs extends HTMLElement {
     this.removeEventListener('keydown', this.#handleKey)
   }
 
-  #setup() {
     //TODO: enforce having a label by aria-labelledby or aria-label
     //TODO: wait for domready before setting stuff for content
     this.setAttribute('role', 'tablist')
+  setup() {
     const tabs = this.tabs
     tabs.forEach(tab => {
       const id = tab.value
@@ -66,17 +66,18 @@ export class Tabs extends HTMLElement {
       panel.setAttribute('aria-labelledby', tab.id)
       panel.setAttribute('tabindex', '0')
     })
-    this.#select(tabs[0])
+
+    this.select(tabs[0])
     this.#listen()
   }
 
   connectedCallback() {
     if (document.readyState !== 'complete') {
       document.addEventListener('DOMContentLoaded', () => {
-        this.#setup()
+        this.setup()
       })
     } else {
-      this.#setup()
+      this.setup()
     }
   }
   disconnectedCallback() {
