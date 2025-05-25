@@ -1,5 +1,3 @@
-//Supports only horizontal tabs for now.
-
 export class Tabs extends HTMLElement {
   static observedAttributes = ['activation']
 
@@ -10,14 +8,26 @@ export class Tabs extends HTMLElement {
   get tabs() {return Array.from(this.querySelectorAll('button'))}
   panel(tab) {return document.getElementById(tab.value)}
   select(tab) {
-    const id = tab.value
+    const panel = this.panel(tab)
+    if (!this.#dispatch(tab, panel)) return
+
+    const selectedId = tab.value
     this.tabs.forEach(tab => {
       const panel = this.panel(tab)
-      const isSelected = panel.id === id
+      const isSelected = panel.id === selectedId
       tab.setAttribute('aria-selected', isSelected)
       tab.tabIndex = (!isSelected * -1).toString() //0 if isSelected is true, -1 if false
       panel.hidden = !isSelected
     })
+  }
+
+  #dispatch(tab, panel) {
+    const event = new CustomEvent(this.localName, {
+      cancelable: true,
+      bubbles: true,
+      detail: {tab, panel},
+    })
+    return this.dispatchEvent(event)
   }
 
   #handleClick = e => this.select(e.target.closest('button'))
@@ -67,7 +77,7 @@ export class Tabs extends HTMLElement {
       if (!tab.id) {
         let safeid = panel.id + '-tab'
         if (document.getElementById(safeid)) {
-          //Just making absolutely sure we don't accidentally introcuce duplicate ids.
+          //Se we don't accidentally introduce duplicate ids.
           safeid = crypto.randomUUID()
         }
         tab.id = safeid
