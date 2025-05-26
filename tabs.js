@@ -1,20 +1,17 @@
 export class Tabs extends HTMLElement {
-  static observedAttributes = ['activation']
+  static observedAttributes = ['manual-activation']
 
   constructor() {super()}
 
-  get orientation() {return this.getAttribute('aria-orientation')}
-  get activation() {return this.getAttribute('activation')}
   get tabs() {return Array.from(this.querySelectorAll('button'))}
   panel(tab) {return document.getElementById(tab.value)}
   select(tab) {
-    const panel = this.panel(tab)
-    if (!this.#dispatch(tab, panel)) return
+    const selectedPanel = this.panel(tab)
+    if (!this.#dispatch(tab, selectedPanel)) return
 
-    const selectedId = tab.value
     this.tabs.forEach(tab => {
       const panel = this.panel(tab)
-      const isSelected = panel.id === selectedId
+      const isSelected = panel === selectedPanel
       tab.setAttribute('aria-selected', isSelected)
       tab.tabIndex = (!isSelected * -1).toString() //0 if isSelected is true, -1 if false
       panel.hidden = !isSelected
@@ -32,7 +29,7 @@ export class Tabs extends HTMLElement {
 
   #handleClick = e => this.select(e.target.closest('button'))
   #handleKey = e => {
-    const orientation = this.orientation
+    const orientation = this.getAttribute('aria-orientation')
     const nextKey = orientation === 'vertical' && e.key === 'ArrowDown' || e.key === 'ArrowRight'
     const prevKey = orientation === 'vertical' && e.key === 'ArrowUp' || e.key === 'ArrowLeft'
     if (!nextKey && !prevKey) return
@@ -48,7 +45,7 @@ export class Tabs extends HTMLElement {
       nextTab = tabs[index - 1] || tabs[tabs.length - 1] //find prev tab or wrap to last
     }
     nextTab.focus()
-    if (this.activation !== 'manual') {
+    if (this.getAttribute('manual-activation') === null) {
       this.select(nextTab)
     }
   }

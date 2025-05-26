@@ -55,9 +55,9 @@ Add `aria-selected="true"` to your selected tab.
 
 A standard aria attribute that applies to tabs. Set `aria-orientation="vertical"` if you are styling the tab buttons to have a vertically stacked layout. This will have up & down arrows change tabs instead of left & right.
 
-### `activation`
+### `manual-activation`
 
-You can set `activation="manual"` if you don't want the tabs to change immediately on arrow key press. This means that tab buttons will get focused when you press arrow keys, but you will need to press Space or Enter to activate the focused tab.
+You can set `manual-activation"` if you don't want the tabs to change immediately on arrow key press. This means that tab buttons will get focused when you press arrow keys, but you will need to press Space or Enter to activate the focused tab.
 
 ## Events
 
