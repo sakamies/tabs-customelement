@@ -34,7 +34,7 @@ The tabs element upgrades the DOM with all the necessary attributes and event li
 
 ![Example screen recording of attributes being populated to the dom.](upgrade.gif)
 
-The example in `index.html` has minimal styling, but the elements are just buttons and sections, so style however fits your project. Inspect the elements with devtools to see what attributes are added to the buttons and sections. There is no hidden state, just attributes.
+The example in `index.html` has minimal styling, but the elements are just buttons and sections, so style however fits your project. Inspect the elements with devtools to see what attributes are added to the buttons and sections. There is no hidden state, only uses standard html attributes to function.
 
 You can use wrappers for the buttons or really any html inside `<tabs->` if you need to. The tabs element only cares that there are some buttons with values inside somewhere, and that there are elements that have ids that match those values somewhere.
 
