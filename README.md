@@ -23,11 +23,11 @@ No build, no dependencies, no styles, no shadow dom. About 3.2k as is, less than
 
 ```html
 <tabs->
-  <button value="tab-a-id">Tab A</button>
-  <button value="tab-b-id">Tab B</button>
+  <button value="a">Tab A</button>
+  <button value="b">Tab B</button>
 </tabs->
-<section id="tab-a-id">Tab A content</section>
-<section id="tab-b-id">Tab B content</section>
+<section id="a">Tab A content</section>
+<section id="b">Tab B content</section>
 ```
 
 The tabs element upgrades the DOM with all the necessary attributes and event listeners.
@@ -44,8 +44,8 @@ Add `aria-selected="true"` to your selected tab.
 
 ```html
 <tabs->
-  <button value="tab-a-id">Tab A</button>
-  <button aria-selected="true" value="tab-b-id">Tab B</button>
+  <button value="a">Tab A</button>
+  <button aria-selected="true" value="b">Tab B</button>
 </tabs->
 ```
 
@@ -57,7 +57,14 @@ A standard aria attribute that applies to tabs. Set `aria-orientation="vertical"
 
 ### `manual-activation`
 
-You can set `manual-activation"` if you don't want the tabs to change immediately on arrow key press. This means that tab buttons will get focused when you press arrow keys, but you will need to press Space or Enter to activate the focused tab.
+You can set the `manual-activation` attribute if you don't want the tabs to change immediately on arrow key press. This means that tab buttons will get focused when you press arrow keys, but you will need to press Space or Enter to activate the focused tab.
+
+```html
+<tabs- manual-activation>
+  <button value="a">Tab A</button>
+  <button value="b">Tab B</button>
+</tabs->
+```
 
 ## Events
 
