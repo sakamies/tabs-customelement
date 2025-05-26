@@ -12,8 +12,8 @@ No build, no dependencies, no Shadow DOM shenanigans. About 3.3k as is, less tha
 
 ```html
 <script type="module">
-  import {Tabs} from '/tabs.js'
-  customElements.define('tabs-', Tabs)
+  import {TabsElement} from '/tabs.js'
+  customElements.define('tabs-', TabsElement)
 </script>
 ```
 

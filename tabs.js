@@ -1,4 +1,4 @@
-export class Tabs extends HTMLElement {
+export class TabsElement extends HTMLElement {
   static observedAttributes = ['manual-activation']
 
   constructor() {super()}
