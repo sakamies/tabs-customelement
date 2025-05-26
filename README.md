@@ -63,7 +63,7 @@ You can set `activation="manual"` if you don't want the tabs to change immediate
 
 When changing a tab, the tabs element will dispatch an event with the element name. If you named your tabs element `<tabs->`, then the event you listen to will be `tabs-`.
 
-The event gets the selected tab and panel in its `detail` property.
+The event gets the selected tab and panel in its [`detail`](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/detail) property.
 
 The event is cancellable with `event.preventDefault()`. When preventing default, you get the tab and panel, but the tab will not change.
 
