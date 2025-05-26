@@ -2,7 +2,7 @@
 
 A minimal tabs custom element that tries to work exactly according to [ARIA Authoring Practices Guide (APG) Tabs Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/). Doesn't do anything else.
 
-No build, no dependencies, no Shadow DOM shenanigans. Maybe about 3.5k uncompressed with comments. Trying to keep less than 1k compressed.
+No build, no dependencies, no Shadow DOM shenanigans. About 3.3k as is, less than 1k compressed.
 
 [Demo](https://sakamies.github.io/tabs-customelement/)
 
