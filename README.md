@@ -124,7 +124,7 @@ If you have a link, button, or some other focusable element inside your panel, y
 
 ### Disabled tabs
 
-You can disable tabs the standard way of setting the `disabled` attribute. You should avoid this though, since disabled buttons will not be communicated to screen readers in any way. Users with normal sight might now there's a disabled tab there, but screen reader users probably won't.
+You can disable tabs the standard way of setting the `disabled` attribute. You should avoid this though, since disabled buttons will not be communicated to screen readers in any way. Users with normal sight might know there's a disabled tab there, but screen reader users probably won't.
 
 ```html
 <tabs->
