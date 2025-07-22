@@ -1,8 +1,6 @@
 export class TabsElement extends HTMLElement {
   static observedAttributes = ['manual-activation']
 
-  constructor() {super()}
-
   get tabs() {return Array.from(this.querySelectorAll('button'))}
   panel(tab) {return document.getElementById(tab.value)}
   select(tab) {
